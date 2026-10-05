@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "Admin Daftar Hadir IBITEK",
+  "short_name": "Admin Hadir",
+  "description": "Atur mata kuliah, tanggal, dan rekap kehadiran mahasiswa IBITEK.",
+  "lang": "id",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbfdea",
+  "theme_color": "#e4f000",
+  "icons": [
+    { "src": "ikon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "ikon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "ikon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
