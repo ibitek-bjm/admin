@@ -15,20 +15,9 @@
 </div></header>
 
 <main>
-  <section class="card" id="login">
-    <h2>Masuk admin</h2>
-    <p class="hint">Hanya untuk dosen atau pengelola kelas.</p>
-    <form id="lf">
-      <label for="em">Email</label><input id="em" type="email" autocomplete="username" required>
-      <label for="pw">Kata sandi</label><input id="pw" type="password" autocomplete="current-password" required>
-      <button class="btn full" type="submit">Masuk</button>
-      <div id="lmsg" class="msg err" role="alert" hidden></div>
-    </form>
-  </section>
-
-  <div id="app" hidden>
+  <div id="app">
     <section class="card">
-      <div class="bar"><h2>Link untuk mahasiswa</h2><button class="btn ghost" id="out">Keluar</button></div>
+      <div class="bar"><h2>Link untuk mahasiswa</h2></div>
       <p class="hint">Bagikan link ini ke grup kelas.</p>
       <div class="share"><input id="link" readonly><button class="btn" id="salin">Salin</button></div>
     </section>
@@ -63,25 +52,11 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="firebase-config.js"></script>
 <script>
 // GANTI dengan alamat web mahasiswa kamu (repo yang satunya)
-const LINK_MAHASISWA = 'https://USERNAME.github.io/NAMA-REPO-MAHASISWA/';
-const auth = firebase.auth();
+const LINK_MAHASISWA = 'https://ibitek-bjm.github.io/daftarhadir/';
 let M = {}, ref = null, aktif = null, rows = [], started = false;
-
-$('#lf').addEventListener('submit', e => {
-  e.preventDefault();
-  auth.signInWithEmailAndPassword($('#em').value.trim(), $('#pw').value)
-    .catch(() => { const m = $('#lmsg'); m.textContent = 'Email atau kata sandi salah.'; m.hidden = false; });
-});
-$('#out').onclick = () => auth.signOut();
-
-auth.onAuthStateChanged(u => {
-  $('#login').hidden = !!u; $('#app').hidden = !u;
-  if (u && !started) { started = true; init(); }
-});
 
 function init() {
   $('#link').value = LINK_MAHASISWA;
@@ -154,6 +129,7 @@ $('#csv').onclick = () => {
   a.download = `kehadiran-${M[aktif].nama}-${M[aktif].tanggal}.csv`.replace(/\s+/g, '-');
   a.click();
 };
+init();
 </script>
 </body>
 </html>
