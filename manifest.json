@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Admin Daftar Hadir IBITEK",
-  "short_name": "Admin Hadir",
-  "description": "Atur mata kuliah, tanggal, dan rekap kehadiran mahasiswa IBITEK.",
+  "name": "Daftar Hadir Kuliah IBITEK",
+  "short_name": "Daftar Hadir",
+  "description": "Isi daftar hadir kuliah Institut Bisnis dan Teknologi Kalimantan.",
   "lang": "id",
   "start_url": "./",
   "scope": "./",
