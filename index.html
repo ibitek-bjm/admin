@@ -210,8 +210,9 @@ $('#csv').onclick = () => {
 };
 
 // Unduh rekap sebagai gambar PNG (semua nama ditampilkan penuh, nama panjang dibungkus)
-$('#gbr').onclick = () => {
+$('#gbr').onclick = async () => {
   if (!aktif || !rows.length) { alert('Belum ada data kehadiran untuk dijadikan gambar.'); return; }
+  const logo = await new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = 'logo.png'; });
   const m = M[aktif], W = 900, P = 32, S = 2, F = 'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
   const cols = [
     { x: P,       w: 44 },                 // No
@@ -253,9 +254,14 @@ $('#gbr').onclick = () => {
   const g = c.getContext('2d'); g.scale(S, S); g.textBaseline = 'middle';
   g.fillStyle = '#fff'; g.fillRect(0, 0, W, H);
   g.fillStyle = '#e4f000'; g.fillRect(0, 0, W, 10);
+  if (logo) {   // logo di kanan atas, proporsi asli dipertahankan
+    const box = 76, k = Math.min(box / logo.width, box / logo.height);
+    const lw = logo.width * k, lh = logo.height * k;
+    g.drawImage(logo, W - P - lw, P + 6 + (box - lh) / 2, lw, lh);
+  }
 
   g.fillStyle = '#1a1c12'; g.font = `700 26px ${F}`;
-  g.fillText(m.nama, P, P + 22, W - 2 * P);
+  g.fillText(m.nama, P, P + 22, W - 2 * P - 96);
   g.fillStyle = '#6b6f5c'; g.font = `16px ${F}`;
   g.fillText(`Daftar hadir · ${fmtTanggal(m.tanggal)}`, P, P + 54);
   g.font = `700 16px ${F}`;
