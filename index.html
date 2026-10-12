@@ -180,7 +180,7 @@ function bukaRekap(id) {
   $('#rekap').hidden = false;
   $('#rt').textContent = `${M[id].nama} · ${fmtTanggal(M[id].tanggal)}`;
   ref.on('value', s => {
-    rows = Object.values(s.val() || {}).sort((a, b) => a.nama.localeCompare(b.nama));
+    rows = Object.values(s.val() || {}).sort((a, b) => (Number(a.waktu) || 0) - (Number(b.waktu) || 0) || a.nama.localeCompare(b.nama));
     const h = rows.filter(r => r.status === 'Hadir').length;
     $('#rs').innerHTML = `<div>Total ${rows.length}</div><div style="color:var(--leaf)">Hadir ${h}</div><div style="color:var(--rust)">Izin ${rows.length - h}</div>`;
     $('#rb').innerHTML = rows.length ? rows.map(r => `
